@@ -1,0 +1,289 @@
+/* Estilos generales */
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #0cc0df;
+    color: #fff;
+    padding: 1px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.cta .button {
+    background-color: #c1ff72;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.cta .button-secondary {
+    background-color: #ffc107;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.hero {
+    background: url('/static/images/background.jpg') no-repeat center center/cover;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.services, .testimonials, .contact {
+    width: 90%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.services h2, .testimonials h2, .contact h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+.service-cards, .testimonial-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.service-card, .testimonial-card {
+    background-color: #f4f4f4;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+}
+
+.service-card img, .testimonial-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.service-card h3, .testimonial-card h4 {
+    margin-top: 10px;
+    color: #007bff;
+}
+
+.service-card p, .testimonial-card p {
+    margin: 10px 0;
+}
+
+.service-card a, .testimonial-card a {
+    text-decoration: none;
+    color: #28a745;
+    font-weight: bold;
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact form input, .contact form textarea {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.contact form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.contact form button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+footer .social-links a {
+    margin: 0 10px;
+}
+
+footer p {
+    margin: 0;
+}
+
+
+.profile {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+.profile h2 {
+    margin: 0;
+    font-size: 24px;
+}
+.profile p {
+    margin: 5px 0;
+    font-size: 18px;
+}
+.profile .price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+.details {
+    margin-top: 20px;
+}
+.details button {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.details .hidden {
+    display: none;
+    margin-top: 20px;
+}
+
+
+/* Estilos para la sección de búsqueda */
+.search {
+    width: 90%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f4f4f4; /* Cambiado para que coincida con el fondo general */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1em;
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+    display: inline-block; /* Alinea los contenedores horizontalmente */
+}
+
+.form-group select {
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa; /* Color de fondo */
+    color: #333; /* Color del texto */
+    font-size: 16px;
+    outline: none;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+/* Estilo para las opciones del selector */
+.form-group select option {
+    padding: 10px;
+}
+
+/* Estilo para el botón de búsqueda */
+.search-form .button {
+    padding: 12px 30px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-top: 20px; /* Agregado margen superior */
+}
+
+/* Pseudo-clases hover para los selectores y el botón */
+.form-group select:hover,
+.search-form .button:hover {
+    background-color: #0cc0df;
+    box-shadow: #0cc0df;
+}
+
+/* Pseudo-clases focus para los selectores */
+.form-group select:focus {
+    background-color: #fff;
+    color: #007bff;
+    box-shadow: #0cc0df;
+}
+
+

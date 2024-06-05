@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicare</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la Empresa" width="200" height="200">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}#inicio">Inicio</a></li>
+                <li><a href="{{ url_for('index') }}#quienes-somos">Quiénes Somos</a></li>
+                <li><a href="{{ url_for('index') }}#servicios">Servicios</a></li>
+                <li><a href="{{ url_for('index') }}#recursos">Recursos</a></li>
+                <li><a href="{{ url_for('index') }}#contacto">Contacto</a></li>
+                <li><a href="{{ url_for('perfil') }}">Perfil</a></li>
+            </ul>
+            <div class="cta">
+                <a href="{{ url_for('consulta_gratis') }}" class="button">Registrate</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+       
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>Conecta con los mejores médicos desde la comodidad de tu hogar</h1>
+                <p>Soluciones integrales para tu salud y bienestar.</p>
+            </div>
+        </section>
+
+
+        <section id="buscar" class="search">
+            <h2>Buscar Especialistas</h2>
+            <form action="{{ url_for('buscar_especialistas') }}" method="GET" class="search-form">
+                <div class="form-group">
+                    <label for="especialidad">Especialidad:</label>
+                    <select id="especialidad" name="especialidad" required >
+                        <option value="">Selecciona una especialidad</option>
+                        <option value="cardiologia">Cardiología</option>
+                        <option value="neurologia">Neurología</option>
+                        <option value="dermatologia">Dermatología</option>
+                        <!-- Agrega más opciones según necesites -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ubicacion">Ubicación:</label>
+                    <select id="ubicacion" name="ubicacion" required>
+                        <option value="">Selecciona una ubicación</option>
+                        <option value="Bogota">Bogotá D.C.</option>
+                        <option value="Medellin">Medellín</option>
+                        <option value="Cali">Cali</option>
+                        <!-- Agrega más opciones según necesites -->
+                    </select>
+                </div>
+                <button type="submit" class="button">Buscar</button>
+            </form>
+        </section>
+
+        <section id="servicios" class="services">
+            <h2>Nuestros Servicios</h2>
+            <div class="service-cards">
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/consultation.png') }}" alt="Consulta Médica">
+                    <h3>Consulta Médica</h3>
+                    <p>Conecta con médicos especialistas para recibir atención médica en línea.</p>
+                    <a href="{{ url_for('servicio', servicio='consulta_medica') }}">Más Información</a>
+                </div>
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/follow-up.png') }}" alt="Seguimiento de Pacientes">
+                    <h3>Seguimiento de Pacientes</h3>
+                    <p>Monitoreo continuo y seguimiento personalizado de tu salud.</p>
+                    <a href="{{ url_for('servicio', servicio='seguimiento_pacientes') }}">Más Información</a>
+                </div>
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/prescriptions.png') }}" alt="Recetas Médicas">
+                    <h3>Recetas Médicas y consejos</h3>
+                    <p>Obtén tus recetas médicas de manera rápida y segura.</p>
+                    <a href="{{ url_for('servicio', servicio='recetas_medicas') }}">Más Información</a>
+                </div>         
+            </div>
+        </section>
+
+        <section id="testimonios" class="testimonials">
+            <h2>Testimonios</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <p>"Gracias a Medicare, pude recibir atención médica sin salir de casa."</p>
+                    <h4>Ana López, Paciente</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"La plataforma es muy fácil de usar y me permitió seguir mi tratamiento de manera efectiva."</p>
+                    <h4>Carlos Rodríguez, Paciente</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"La plataforma es muy fácil de usar y me permitió seguir mi tratamiento de manera efectiva."</p>
+                    <h4>Carlos Rodríguez, Paciente</h4>
+                </div>
+                
+            </div>
+        </section>
+
+        <section id="contacto" class="contact">
+            <h2>Contacto Rápido</h2>
+            <form action="{{ url_for('enviar_contacto') }}" method="POST">
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="mensaje" placeholder="Mensaje" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/linkedin.png') }}" alt="LinkedIn"></a>
+            </div>
+            <p>&copy; 2024 Medicare. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script> 
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (link.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href').substring(1);
+                        const targetSection = document.getElementById(targetId);
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script> 
+</body>
+</html>

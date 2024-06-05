@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultoría en Ciberseguridad</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logoweb.png') }}" alt="Logo de la Empresa" width="150" height="150">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="cta">
+                <a href="#" class="button">Consulta Gratis</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>Protege tu información, asegura tu futuro</h1>
+                <p>Soluciones integrales en ciberseguridad para empresas de todos los tamaños.</p>
+                <a href="#" class="button">Solicita una Consulta Gratis</a>
+                <a href="#servicios" class="button-secondary">Conoce Nuestros Servicios</a>
+            </div>
+        </section>
+
+        <section id="quienes-somos">
+            <h1>Nuestra Historia</h1>
+            <p>Inserta aquí información sobre la historia de tu empresa.</p>
+
+            <h1>Equipo de Expertos</h1>
+            <p>Inserta aquí información sobre tu equipo de expertos en ciberseguridad.</p>
+
+            <h1>Reconocimientos y Alianzas</h1>
+            <p>Inserta aquí información sobre los reconocimientos y alianzas de tu empresa en el campo de la ciberseguridad.</p>
+        </section>
+
+        <section id="servicios" class="services">
+            <h2>Nuestros Servicios</h2>
+            <div class="service-cards">
+                <div class="service-card">
+                    <img src="audit.png" alt="Auditoría de Seguridad">
+                    <h3>Auditoría de Seguridad</h3>
+                    <p>Evaluaciones detalladas de la seguridad de tu infraestructura.</p>
+                    <a href="#">Más Información</a>
+                </div>
+                <div class="service-card">
+                    <img src="consulting.png" alt="Consultoría Estratégica">
+                    <h3>Consultoría Estratégica</h3>
+                    <p>Asesoramiento en gestión de riesgos y desarrollo de políticas de seguridad.</p>
+                    <a href="#">Más Información</a>
+                </div>
+                <div class="service-card">
+                    <img src="implementation.png" alt="Implementación de Soluciones">
+                    <h3>Implementación de Soluciones</h3>
+                    <p>Implementamos las mejores soluciones de seguridad para tu negocio.</p>
+                    <a href="#">Más Información</a>
+                </div>
+                <div class="service-card">
+                    <img src="training.png" alt="Formación y Capacitación">
+                    <h3>Formación y Capacitación</h3>
+                    <p>Programas de formación y certificación en ciberseguridad.</p>
+                    <a href="#">Más Información</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>Testimonios</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <p>"Gracias a su consultoría, nuestra empresa ha mejorado significativamente su seguridad."</p>
+                    <h4>Juan Pérez, CEO de Empresa X</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Los servicios de auditoría fueron exhaustivos y nos ayudaron a cumplir con todas las normativas."</p>
+                    <h4>María García, CTO de Empresa Y</h4>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="contact">
+            <h2>Contacto Rápido</h2>
+            <form>
+                <input type="text" placeholder="Nombre" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Mensaje" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><img src="facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="linkedin.png" alt="LinkedIn"></a>
+            </div>
+            <p>&copy; 2024 Consultoría en Ciberseguridad. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

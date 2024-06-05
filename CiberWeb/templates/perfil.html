@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDICARE</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function toggleDetails() {
+            var details = document.getElementById('extraDetails');
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+            } else {
+                details.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la Empresa" width="200" height="200">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Quiénes Somos</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Recursos</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+            <div class="cta">
+                <a href="#" class="button">Consulta Gratis</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="profile">
+            <img src="{{ url_for('static', filename='images/doctor.jpg') }}" alt="Foto del Médico">
+            <h2>Dr. Juan Pérez</h2>
+            <p>Especialidad: Cardiología</p>
+            <p class="price">Precio de Consulta: $100</p>
+            <div class="details">
+                <button onclick="toggleDetails()">Ver más detalles</button>
+                <div id="extraDetails" class="hidden">
+                    <p>Experiencia: 10 años</p>
+                    <p>Ubicación: Calle Falsa 123, Ciudad</p>
+                    <p>Teléfono: +123 456 7890</p>
+                    <p>Email: dr.juan@example.com</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>Testimonios</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <p>"Gracias a su consultoría, nuestra empresa ha mejorado significativamente su seguridad."</p>
+                    <h4>Juan Pérez, CEO de Empresa X</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Los servicios de auditoría fueron exhaustivos y nos ayudaron a cumplir con todas las normativas."</p>
+                    <h4>María García, CTO de Empresa Y</h4>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2>Contacto Rápido</h2>
+            <form>
+                <input type="text" placeholder="Nombre" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Mensaje" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/linkedin.png') }}" alt="LinkedIn"></a>
+            </div>
+            <p>&copy; 2024 Consultoría en Ciberseguridad. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
