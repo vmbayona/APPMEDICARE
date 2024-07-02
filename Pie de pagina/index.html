@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie de Página con Menús en Columnas</title>
+    <style>
+        /* Estilos generales del cuerpo y encabezado */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        .company-name {
+            margin: 0;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        /* Estilos del pie de página */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .footer-columns {
+            display: flex;
+            justify-content: space-around;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .footer-column {
+            flex: 1;
+            text-align: left;
+            padding: 0 1em;
+        }
+
+        .footer-column h3 {
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 0.5em;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.5em;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenido principal de tu página aquí -->
+    
+    <!-- Encabezado -->
+    <div class="header">
+        <h1 class="company-name">Nombre de la Empresa</h1>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <ul class="footer-columns">
+            <!-- Columna 1 -->
+            <li class="footer-column">
+                <h3>Sección 1</h3>
+                <ul>
+                    <li><a href="#">Opción 1</a></li>
+                    <li><a href="#">Opción 2</a></li>
+                    <li><a href="#">Opción 3</a></li>
+                </ul>
+            </li>
+            <!-- Columna 2 -->
+            <li class="footer-column">
+                <h3>Sección 2</h3>
+                <ul>
+                    <li><a href="#">Opción 4</a></li>
+                    <li><a href="#">Opción 5</a></li>
+                    <li><a href="#">Opción 6</a></li>
+                </ul>
+            </li>
+            <!-- Columna 3 -->
+            <li class="footer-column">
+                <h3>Sección 3</h3>
+                <ul>
+                    <li><a href="#">Opción 7</a></li>
+                    <li><a href="#">Opción 8</a></li>
+                    <li><a href="#">Opción 9</a></li>
+                </ul>
+            </li>
+            <!-- Columna 4 -->
+            <li class="footer-column">
+                <h3>Sección 4</h3>
+                <ul>
+                    <li><a href="#">Opción 10</a></li>
+                    <li><a href="#">Opción 11</a></li>
+                    <li><a href="#">Opción 12</a></li>
+                </ul>
+            </li>
+        </ul>
+        <p>&copy; 2024 Nombre de la Empresa. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

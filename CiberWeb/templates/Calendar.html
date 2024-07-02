@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda tu cita</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+  }
+  .calendar {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .navigation-buttons {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .navigation-buttons button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  .navigation-buttons button:hover {
+    background-color: #45a049;
+  }
+  .days {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+    height: 220px;
+  }
+  .day {
+    text-align: center;
+    padding: 20px 10px;
+    min-width: 120px;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 10px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  .day.in-view {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .day.exiting-left {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  .day.exiting-right {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  .day-name {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  .day-number {
+    font-size: 18px;
+    color: #777;
+  }
+  .time-slots-container {
+    max-height: 150px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+  }
+  .time-slot {
+    text-align: center;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin: 5px 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    min-width: 70px;
+  }
+  .time-slot:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+<div class="calendar">
+  <div class="title">Agenda tu cita</div>
+  <div class="navigation-buttons">
+    <button onclick="prevDay()">Día Anterior</button>
+    <button onclick="nextDay()">Siguiente Día</button>
+  </div>
+  <div class="days" id="days-container">
+    <!-- Los días se generarán dinámicamente aquí -->
+  </div>
+</div>
+
+<script>
+  // Obtener la fecha actual
+  let currentDate = new Date();
+  let days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+  // Función para actualizar la fecha en el calendario
+  function updateDate() {
+    let titleElement = document.querySelector('.title');
+    titleElement.textContent = `Agenda tu cita`;
+  }
+
+  // Función para generar los días y horas
+  function generateDays() {
+    let daysContainer = document.getElementById('days-container');
+    daysContainer.innerHTML = ''; // Limpiar el contenido previo
+
+    // Generar máximo 4 días
+    for (let i = 0; i < 4; i++) {
+      let dayElement = document.createElement('div');
+      dayElement.classList.add('day');
+      if (i === 0) dayElement.classList.add('in-view');
+      let dayNameElement = document.createElement('div');
+      dayNameElement.classList.add('day-name');
+      dayNameElement.textContent = days[currentDate.getDay()];
+      let dateElement = document.createElement('div');
+      dateElement.classList.add('day-number');
+      dateElement.textContent = formatDate(currentDate);
+      dayElement.appendChild(dayNameElement);
+      dayElement.appendChild(dateElement);
+      dayElement.appendChild(createTimeSlots());
+      daysContainer.appendChild(dayElement);
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    currentDate.setDate(currentDate.getDate() - 4); // Volver a la fecha original
+  }
+
+  // Función para formatear la fecha en "dd Mon"
+  function formatDate(date) {
+    let day = date.getDate();
+    let month = date.toLocaleString('default', { month: 'short' });
+    return `${day} ${month}`;
+  }
+
+  // Función para generar las horas
+  function createTimeSlots() {
+    let timeSlotsContainer = document.createElement('div');
+    timeSlotsContainer.classList.add('time-slots-container');
+
+    for (let hour = 8; hour <= 20; hour++) {
+      let timeSlot = document.createElement('div');
+      timeSlot.classList.add('time-slot');
+      timeSlot.textContent = `${hour}:00`;
+      timeSlot.addEventListener('click', function() {
+        // Aquí puedes añadir la lógica para reservar la cita en este horario
+        alert(`Has seleccionado el horario: ${hour}:00`);
+      });
+      timeSlotsContainer.appendChild(timeSlot);
+    }
+
+    return timeSlotsContainer;
+  }
+
+  // Función para resaltar los horarios disponibles
+  function highlightAvailableSlots() {
+    let slots = document.querySelectorAll('.time-slot');
+    slots.forEach(slot => {
+      // Aquí podrías agregar lógica para determinar si el horario está disponible
+      // Por ahora, resaltamos todos los horarios
+      slot.style.backgroundColor = '#4CAF50'; // Color de fondo predeterminado
+    });
+  }
+
+  // Función para navegar al día anterior
+  function prevDay() {
+    currentDate.setDate(currentDate.getDate() - 1);
+    updateDays('left');
+  }
+
+  // Función para navegar al siguiente día
+  function nextDay() {
+    currentDate.setDate(currentDate.getDate() + 1);
+    updateDays('right');
+  }
+
+  // Función para actualizar los días con transiciones
+  function updateDays(direction) {
+    let daysContainer = document.getElementById('days-container');
+    let currentDays = document.querySelectorAll('.day');
+    
+    currentDays.forEach(day => {
+      if (direction === 'left') {
+        day.classList.add('exiting-left');
+      } else {
+        day.classList.add('exiting-right');
+      }
+    });
+
+    setTimeout(() => {
+      daysContainer.innerHTML = ''; // Limpiar el contenido previo
+
+      for (let i = 0; i < 4; i++) {
+        let dayElement = document.createElement('div');
+        dayElement.classList.add('day');
+        if (i === 0) dayElement.classList.add('in-view');
+        let dayNameElement = document.createElement('div');
+        dayNameElement.classList.add('day-name');
+        dayNameElement.textContent = days[currentDate.getDay()];
+        let dateElement = document.createElement('div');
+        dateElement.classList.add('day-number');
+        dateElement.textContent = formatDate(currentDate);
+        dayElement.appendChild(dayNameElement);
+        dayElement.appendChild(dateElement);
+        dayElement.appendChild(createTimeSlots());
+        daysContainer.appendChild(dayElement);
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      currentDate.setDate(currentDate.getDate() - 4); // Volver a la fecha original
+
+      let newDays = document.querySelectorAll('.day');
+      setTimeout(() => {
+        newDays.forEach(day => {
+          day.classList.add('in-view');
+        });
+      }, 10);
+    }, 500); // Duración de la animación de salida
+  }
+
+  // Llamar a las funciones para inicializar el calendario
+  updateDate();
+  generateDays();
+  highlightAvailableSlots();
+</script>
+</body>
+</html>

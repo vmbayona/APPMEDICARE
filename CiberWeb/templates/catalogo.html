@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Médicos</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Estilos adicionales */
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .profile {
+            width: 80%;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 30px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile img {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+
+        @media screen and (max-width: 768px) {
+            .profile {
+                width: 100%;
+            }
+
+            .schedule {
+                width: 100%;
+            }
+        }
+
+        .details {
+            margin-top: 10px;
+        }
+
+        .menu-button {
+            margin: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .form-column {
+            width: 100%;
+        }
+
+        .form-column label,
+        .form-column input,
+        .form-column select,
+        .form-column button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+         /* Estilos para los botones personalizados */
+         .cta-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            background-color: #1aa80d; /* Verde */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049; /* Verde oscuro */
+            transform: scale(1.05);
+        }
+        .additional-info {
+        margin-top: 30px;
+    }
+
+    .additional-info h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .additional-info ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+
+    .additional-info ul li {
+        margin-bottom: 5px;
+    }
+
+    .additional-info p {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+
+    </style>
+
+    <script>
+        function toggleDetails(detailId, doctorId) {
+            var detailsElement = document.getElementById(detailId + '-' + doctorId);
+            if (detailsElement) {
+                var extraDetails = document.getElementById('extraDetails-' + doctorId);
+                var allDetails = extraDetails.querySelectorAll('p');
+                allDetails.forEach(function (detail) {
+                    if (detail.id !== detailId + '-' + doctorId) {
+                        detail.style.display = 'none';
+                    }
+                });
+                extraDetails.classList.remove('hidden');
+                detailsElement.style.display = 'block';
+            }
+        }
+
+        function showMyAppointmentForm(doctorId) {
+            document.getElementById('my-appointment-form-' + doctorId).style.display = 'block';
+            document.getElementById('other-appointment-form-' + doctorId).style.display = 'none';
+        }
+
+        function showOtherAppointmentForm(doctorId) {
+            document.getElementById('other-appointment-form-' + doctorId).style.display = 'block';
+            document.getElementById('my-appointment-form-' + doctorId).style.display = 'none';
+        }
+
+        function scheduleAppointment(type, doctorId) {
+            if (type === 'my') {
+                console.log('Agendar cita para mí con el doctor ' + doctorId);
+            } else {
+                console.log('Agendar cita para otra persona con el doctor ' + doctorId);
+            }
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+    var buscarAvanzadoBtn = document.getElementById("buscar-avanzado-btn");
+    var busquedaAvanzada = document.getElementById("busqueda-avanzada");
+    var aplicarFiltrosBtn = document.getElementById("aplicar-filtros-btn");
+    var formularioBusqueda = document.getElementById("formulario-busqueda");
+    var mensajeError = document.getElementById("mensaje-error");
+
+    buscarAvanzadoBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        if (busquedaAvanzada.style.display === "none") {
+            busquedaAvanzada.style.display = "block";
+        } else {
+            busquedaAvanzada.style.display = "none";
+        }
+    });
+
+    aplicarFiltrosBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        // Obtener los valores de los campos
+        var especialidad = document.getElementById("especialidad").value;
+        var ubicacion = document.getElementById("ubicacion").value;
+        var tipoConsulta = document.getElementById("tipo_consulta").value;
+        var genero = document.getElementById("genero").value;
+        var rangoPrecio = document.getElementById("rango_precio").value;
+
+        // Verificar si al menos uno de los campos tiene un valor
+        if (tipoConsulta === "" && genero === "" && rangoPrecio === "") {
+            mensajeError.style.display = "block"; // Mostrar el mensaje de error
+        } else {
+            mensajeError.style.display = "none"; // Ocultar el mensaje de error si estaba visible
+            // Construir la URL con los parámetros de búsqueda
+            var url = "{{ url_for('buscar_especialistas') }}?";
+            if (especialidad !== "") url += "especialidad=" + especialidad + "&";
+            if (ubicacion !== "") url += "ubicacion=" + ubicacion + "&";
+            if (tipoConsulta !== "") url += "tipo_consulta=" + tipoConsulta + "&";
+            if (genero !== "") url += "genero=" + genero + "&";
+            if (rangoPrecio !== "") url += "rango_precio=" + rangoPrecio + "&";
+
+            // Redireccionar a la página de resultados con los filtros aplicados
+            window.location.href = url.slice(0, -1); // Eliminar el último "&"
+        }
+    });
+});
+
+  // Función para cargar el contenido de un archivo HTML
+  function loadHTML(url, elementId) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        document.getElementById(elementId).innerHTML = xhr.responseText;
+        // Ejecutar los scripts del contenido cargado
+        const scripts = document.getElementById(elementId).getElementsByTagName('script');
+        for (let i = 0; i < scripts.length; i++) {
+          eval(scripts[i].innerText);
+        }
+      }
+    };
+    xhr.send();
+  }
+
+  // Cargar el calendario en el contenedor especificado
+  loadHTML('Calendar.html', 'calendar-container');
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la Empresa" width="200" height="200">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Quiénes Somos</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Recursos</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+            <div class="cta">
+                <a href="#" class="button">Consulta Gratis</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="buscar" class="search">
+            <h2>Buscar Especialistas</h2>
+            <form id="formulario-busqueda" action="{{ url_for('buscar_especialistas') }}" method="GET" class="search-form">
+                <div class="form-group">
+                    <label for="especialidad">Especialidad:</label>
+                    <select id="especialidad" name="especialidad" required>
+                        <option value="">Selecciona una especialidad</option>
+    <option value="Alergología">Alergología</option>
+    <option value="Anestesiología">Anestesiología</option>
+    <option value="Angiología y cirugía vascular">Angiología y cirugía vascular</option>
+    <option value="Cardiología">Cardiología</option>
+    <option value="Dermatología">Dermatología</option>
+    <option value="Endocrinología y nutrición">Endocrinología y nutrición</option>
+    <option value="Gastroenterología">Gastroenterología</option>
+    <option value="Geriatría">Geriatría</option>
+    <option value="Ginecología y obstetricia">Ginecología y obstetricia</option>
+    <option value="Hematología">Hematología</option>
+    <option value="Infectología">Infectología</option>
+    <option value="Medicina familiar y comunitaria">Medicina familiar y comunitaria</option>
+    <option value="Medicina física y rehabilitación">Medicina física y rehabilitación</option>
+    <option value="Medicina interna">Medicina interna</option>
+    <option value="Medicina nuclear">Medicina nuclear</option>
+    <option value="Medicina preventiva y salud pública">Medicina preventiva y salud pública</option>
+    <option value="Nefrología">Nefrología</option>
+    <option value="Neumología">Neumología</option>
+    <option value="Neurocirugía">Neurocirugía</option>
+    <option value="Neurología">Neurología</option>
+    <option value="Oftalmología">Oftalmología</option>
+    <option value="Oncología médica">Oncología médica</option>
+    <option value="Oncología radioterápica">Oncología radioterápica</option>
+    <option value="Oncología quirúrgica">Oncología quirúrgica</option>
+    <option value="Pediatría">Pediatría</option>
+    <option value="Psiquiatría">Psiquiatría</option>
+    <option value="Psicología">Psicología</option>
+    <option value="Radiodiagnóstico">Radiodiagnóstico</option>
+    <option value="Reumatología">Reumatología</option>
+    <option value="Traumatología y ortopedia">Traumatología y ortopedia</option>
+    <option value="Urología">Urología</option>
+                        <!-- Agrega más opciones según necesites -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ubicacion">Ubicación:</label>
+                    <select id="ubicacion" name="ubicacion" required>
+                        <option value="">Selecciona una ubicación</option>
+                        <option value="Bogota">Bogotá D.C.</option>
+                        <option value="Medellin">Medellín</option>
+                        <option value="Cali">Cali</option>
+                        <option value="Barranquilla">Barranquilla</option>
+    <option value="Cartagena">Cartagena</option>
+    <option value="Cúcuta">Cúcuta</option>
+    <option value="Bucaramanga">Bucaramanga</option>
+    <option value="Pereira">Pereira</option>
+    <option value="Santa Marta">Santa Marta</option>
+    <option value="Ibagué">Ibagué</option>
+    <option value="Pasto">Pasto</option>
+    <option value="Manizales">Manizales</option>
+    <option value="Neiva">Neiva</option>
+    <option value="Soledad">Soledad</option>
+    <option value="Armenia">Armenia</option>
+    <option value="Villavicencio">Villavicencio</option>
+    <option value="Soacha">Soacha</option>
+    <option value="Valledupar">Valledupar</option>
+    <option value="Montería">Montería</option>
+    <option value="Itagüí">Itagüí</option>
+
+                        <!-- Agrega más opciones según necesites -->
+                    </select>
+                </div>
+                <button type="submit" class="button">Buscar</button>
+                <button type="button" id="buscar-avanzado-btn" class="button">Búsqueda Avanzada</button>
+            </form>
+            
+            <!-- Sección de búsqueda avanzada (inicialmente oculta) -->
+            <div id="busqueda-avanzada" style="display: none;">
+                <h3>Búsqueda Avanzada</h3>
+                <ul class="advanced-search-list">
+                    <li class="form-group">
+                        <label for="tipo_consulta">Tipo de Consulta:</label>
+                        <select id="tipo_consulta" name="tipo_consulta">
+                            <option value="">Selecciona el tipo de consulta</option>
+                            <option value="presencial">Presencial</option>
+                            <option value="virtual">Virtual</option>
+                            <option value="domiciliaria">Domiciliaria</option>
+
+                            <!-- Agregar más opciones según sea necesario -->
+                        </select>
+                    </li>
+                    <li class="form-group">
+                        <label for="genero">Género del Especialista:</label>
+                        <select id="genero" name="genero">
+                            <option value="">Selecciona el género</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                            <!-- Agrega más opciones según sea necesario -->
+                        </select>
+                    </li>
+                    <li class="form-group">
+                        <label for="rango_precio">Rango de Precio:</label>
+                        <select id="rango_precio" name="rango_precio">
+                            <option value="">Selecciona rango de precio</option>
+                            <option value="0-50">$0 - $50</option>
+                            <option value="50-100">$50 - $100</option>
+                            <!-- Agrega más opciones según sea necesario -->
+                        </select>
+                    </li>
+                    <!-- Agrega más campos de filtro según sea necesario -->
+                </ul>
+                <button type="button" id="aplicar-filtros-btn" class="button">Buscar</button>
+            </div>
+            <div id="busqueda-avanzada">
+                <!-- Resto de campos y etiquetas -->
+                <p id="mensaje-error" style="color: red; display: none;">Debes completar al menos un campo para realizar la búsqueda.</p>
+            </div>
+        </section>
+
+
+
+
+        <!-- Perfil del Dr. Juan Pérez -->
+<section class="profile">
+    <a href="{{ url_for('perfil') }}">
+        <img src="{{ url_for('static', filename='images/doctor.jpeg') }}" alt="Foto del Médico">
+    </a>
+    <a href="{{ url_for('perfil') }}">
+        <h2>Dr. Juan Pérez</h2>
+    </a>
+    <p><b>Especialidad: Cardiología</b></p>
+               
+    <div class="details">
+        <button class="menu-button" onclick="toggleDetails('price', 'maria')">Ver Precio</button>
+        <button class="menu-button" onclick="toggleDetails('experience', 'maria')">Ver Experiencia</button>
+        <button class="menu-button" onclick="toggleDetails('informacion', 'maria')">Información adicional</button>
+        
+        <div id="extraDetails-maria" class="hidden">
+            <p id="price-maria"></p>
+            <p id="experience-maria">Experiencia: 8 años</p>
+            <p id="informacion-maria"></p>
+        </div>
+    </div>
+
+    <div id="calendar-container">
+        <!-- Aquí se cargará el calendario -->
+      </div>
+
+    
+
+</section>
+
+        
+        
+            <!-- Perfil del Dr. Maria Gomez -->
+            <section class="profile">
+                <img src="{{ url_for('static', filename='images/doctor2.jpeg') }}" alt="Foto del Médico">
+                <h2>Dra. Maria Gomez</h2>
+                <p> <b>Especialidad: Neurología</b></p>
+                <p>Acerca de mí: Neuróloga con 8 años de experiencia, especializada en el tratamiento de enfermedades del sistema nervioso. Dedicada a la investigación y tratamiento de trastornos neurológicos.</p>
+        
+                <div class="details">
+                    <button class="menu-button" onclick="toggleDetails('price', 'maria')">Ver Precio</button>
+                    <button class="menu-button" onclick="toggleDetails('experience', 'maria')">Ver Experiencia</button>
+                    <button class="menu-button" onclick="toggleDetails('informacion', 'maria')">Información adicional</button>
+                    
+                    <div id="extraDetails-maria" class="hidden">
+                        <p id="price-maria"></p>
+                        <p id="experience-maria">Experiencia: 8 años</p>
+                        <p id="informacion-maria"></p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+       
+    </main>
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/linkedin.png') }}" alt="LinkedIn"></a>
+            </div>
+            <p>&copy; 2024 Medicare. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    
+
+
+</body>
+</html>

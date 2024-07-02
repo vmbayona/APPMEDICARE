@@ -5,29 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medicare</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Estilos para los botones personalizados */
+        .cta-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            background-color: #1aa80d; /* Verde */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049; /* Verde oscuro */
+            transform: scale(1.05);
+        }
+
+        /* Estilos para el menú desplegable atractivo */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #008CBA; /* Azul */
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .dropbtn:hover {
+            background-color: #45a049; /* Azul oscuro */
+            transform: scale(1.05);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: opacity 0.3s;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #45a049; /* Azul más oscuro */
+        }
+
+
+        .nav-links a:hover {
+            color: #007bb5;
+        }
+
+
+    </style>
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la Empresa" width="200" height="200">
+                <a href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la Empresa" width="200" height="200">
+                </a>
             </div>
             <ul class="nav-links">
                 <li><a href="{{ url_for('index') }}#inicio">Inicio</a></li>
-                <li><a href="{{ url_for('index') }}#quienes-somos">Quiénes Somos</a></li>
-                <li><a href="{{ url_for('index') }}#servicios">Servicios</a></li>
-                <li><a href="{{ url_for('index') }}#recursos">Recursos</a></li>
-                <li><a href="{{ url_for('index') }}#contacto">Contacto</a></li>
+                <li><a href="{{ url_for('quienes_somos') }}#quienes-somos">Quiénes Somos</a></li>
                 <li><a href="{{ url_for('perfil') }}">Perfil</a></li>
             </ul>
             <div class="cta">
-                <a href="{{ url_for('consulta_gratis') }}" class="button">Registrate</a>
+                <div class="cta-buttons">
+                    <a href="{{ url_for('registrate_paciente') }}" class="button">Regístrate como paciente</a>
+                    <a href="{{ url_for('registrate_medico') }}" class="button">Regístrate como médico</a>
+                    <div class="dropdown">
+                        <button class="button dropbtn"> <b> Inicio de sesión </b></button>
+                        <div class="dropdown-content">
+                            <a href="{{ url_for('login_usuario') }}">Inicio de sesión como médico</a>
+                            <a href="{{ url_for('login_paciente') }}">Inicio de sesión como paciente</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
 
     <main>
-       
         <section id="inicio" class="hero">
             <div class="hero-content">
                 <h1>Conecta con los mejores médicos desde la comodidad de tu hogar</h1>
@@ -35,17 +129,44 @@
             </div>
         </section>
 
-
         <section id="buscar" class="search">
             <h2>Buscar Especialistas</h2>
-            <form action="{{ url_for('buscar_especialistas') }}" method="GET" class="search-form">
+            <form id="formulario-busqueda" action="{{ url_for('buscar_especialistas') }}" method="GET" class="search-form">
                 <div class="form-group">
                     <label for="especialidad">Especialidad:</label>
-                    <select id="especialidad" name="especialidad" required >
+                    <select id="especialidad" name="especialidad" required>
                         <option value="">Selecciona una especialidad</option>
-                        <option value="cardiologia">Cardiología</option>
-                        <option value="neurologia">Neurología</option>
-                        <option value="dermatologia">Dermatología</option>
+    <option value="Alergología">Alergología</option>
+    <option value="Anestesiología">Anestesiología</option>
+    <option value="Angiología y cirugía vascular">Angiología y cirugía vascular</option>
+    <option value="Cardiología">Cardiología</option>
+    <option value="Dermatología">Dermatología</option>
+    <option value="Endocrinología y nutrición">Endocrinología y nutrición</option>
+    <option value="Gastroenterología">Gastroenterología</option>
+    <option value="Geriatría">Geriatría</option>
+    <option value="Ginecología y obstetricia">Ginecología y obstetricia</option>
+    <option value="Hematología">Hematología</option>
+    <option value="Infectología">Infectología</option>
+    <option value="Medicina familiar y comunitaria">Medicina familiar y comunitaria</option>
+    <option value="Medicina física y rehabilitación">Medicina física y rehabilitación</option>
+    <option value="Medicina interna">Medicina interna</option>
+    <option value="Medicina nuclear">Medicina nuclear</option>
+    <option value="Medicina preventiva y salud pública">Medicina preventiva y salud pública</option>
+    <option value="Nefrología">Nefrología</option>
+    <option value="Neumología">Neumología</option>
+    <option value="Neurocirugía">Neurocirugía</option>
+    <option value="Neurología">Neurología</option>
+    <option value="Oftalmología">Oftalmología</option>
+    <option value="Oncología médica">Oncología médica</option>
+    <option value="Oncología radioterápica">Oncología radioterápica</option>
+    <option value="Oncología quirúrgica">Oncología quirúrgica</option>
+    <option value="Pediatría">Pediatría</option>
+    <option value="Psiquiatría">Psiquiatría</option>
+    <option value="Psicología">Psicología</option>
+    <option value="Radiodiagnóstico">Radiodiagnóstico</option>
+    <option value="Reumatología">Reumatología</option>
+    <option value="Traumatología y ortopedia">Traumatología y ortopedia</option>
+    <option value="Urología">Urología</option>
                         <!-- Agrega más opciones según necesites -->
                     </select>
                 </div>
@@ -56,41 +177,113 @@
                         <option value="Bogota">Bogotá D.C.</option>
                         <option value="Medellin">Medellín</option>
                         <option value="Cali">Cali</option>
+                        <option value="Barranquilla">Barranquilla</option>
+    <option value="Cartagena">Cartagena</option>
+    <option value="Cúcuta">Cúcuta</option>
+    <option value="Bucaramanga">Bucaramanga</option>
+    <option value="Pereira">Pereira</option>
+    <option value="Santa Marta">Santa Marta</option>
+    <option value="Ibagué">Ibagué</option>
+    <option value="Pasto">Pasto</option>
+    <option value="Manizales">Manizales</option>
+    <option value="Neiva">Neiva</option>
+    <option value="Soledad">Soledad</option>
+    <option value="Armenia">Armenia</option>
+    <option value="Villavicencio">Villavicencio</option>
+    <option value="Soacha">Soacha</option>
+    <option value="Valledupar">Valledupar</option>
+    <option value="Montería">Montería</option>
+    <option value="Itagüí">Itagüí</option>
+
                         <!-- Agrega más opciones según necesites -->
                     </select>
                 </div>
                 <button type="submit" class="button">Buscar</button>
+                <button type="button" id="buscar-avanzado-btn" class="button">Búsqueda Avanzada</button>
             </form>
+            
+            <!-- Sección de búsqueda avanzada (inicialmente oculta) -->
+            <div id="busqueda-avanzada" style="display: none;">
+                <h3>Búsqueda Avanzada</h3>
+                <ul class="advanced-search-list">
+                    <li class="form-group">
+                        <label for="tipo_consulta">Tipo de Consulta:</label>
+                        <select id="tipo_consulta" name="tipo_consulta">
+                            <option value="">Selecciona el tipo de consulta</option>
+                            <option value="presencial">Presencial</option>
+                            <option value="virtual">Virtual</option>
+                            <option value="domiciliaria">Domiciliaria</option>
+
+                            <!-- Agregar más opciones según sea necesario -->
+                        </select>
+                    </li>
+                    <li class="form-group">
+                        <label for="genero">Género del Especialista:</label>
+                        <select id="genero" name="genero">
+                            <option value="">Selecciona el género</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                            <!-- Agrega más opciones según sea necesario -->
+                        </select>
+                    </li>
+                    <li class="form-group">
+                        <label for="rango_precio">Rango de Precio:</label>
+                        <select id="rango_precio" name="rango_precio">
+                            <option value="">Selecciona rango de precio</option>
+                            <option value="0-50">$0 - $50</option>
+                            <option value="50-100">$50 - $100</option>
+                            <!-- Agrega más opciones según sea necesario -->
+                        </select>
+                    </li>
+                    <!-- Agrega más campos de filtro según sea necesario -->
+                </ul>
+                <button type="button" id="aplicar-filtros-btn" class="button">Buscar</button>
+            </div>
+            <div id="busqueda-avanzada">
+                <!-- Resto de campos y etiquetas -->
+                <p id="mensaje-error" style="color: red; display: none;">Debes completar al menos un campo para realizar la búsqueda.</p>
+            </div>
         </section>
+        
+
+
+        
+        
+
 
         <section id="servicios" class="services">
             <h2>Nuestros Servicios</h2>
             <div class="service-cards">
                 <div class="service-card">
-                    <img src="{{ url_for('static', filename='images/consultation.png') }}" alt="Consulta Médica">
+                    <img src="{{ url_for('static', filename='images/consul.jpeg') }}" alt="Consulta Médica">
                     <h3>Consulta Médica</h3>
                     <p>Conecta con médicos especialistas para recibir atención médica en línea.</p>
                     <a href="{{ url_for('servicio', servicio='consulta_medica') }}">Más Información</a>
                 </div>
                 <div class="service-card">
-                    <img src="{{ url_for('static', filename='images/follow-up.png') }}" alt="Seguimiento de Pacientes">
+                    <img src="{{ url_for('static', filename='images/Pacientes.jpeg') }}" alt="Seguimiento de Pacientes">
                     <h3>Seguimiento de Pacientes</h3>
                     <p>Monitoreo continuo y seguimiento personalizado de tu salud.</p>
                     <a href="{{ url_for('servicio', servicio='seguimiento_pacientes') }}">Más Información</a>
                 </div>
                 <div class="service-card">
-                    <img src="{{ url_for('static', filename='images/prescriptions.png') }}" alt="Recetas Médicas">
+                    <img src="{{ url_for('static', filename='images/recetas.jpeg') }}" alt="Recetas Médicas">
                     <h3>Recetas Médicas y consejos</h3>
                     <p>Obtén tus recetas médicas de manera rápida y segura.</p>
                     <a href="{{ url_for('servicio', servicio='recetas_medicas') }}">Más Información</a>
-                </div>         
+                </div>
             </div>
         </section>
+
+
+
+
+
 
         <section id="testimonios" class="testimonials">
             <h2>Testimonios</h2>
             <div class="testimonial-cards">
-                <div class="testimonial-card">
+                <div class="testimonial-card active">
                     <p>"Gracias a Medicare, pude recibir atención médica sin salir de casa."</p>
                     <h4>Ana López, Paciente</h4>
                 </div>
@@ -102,19 +295,10 @@
                     <p>"La plataforma es muy fácil de usar y me permitió seguir mi tratamiento de manera efectiva."</p>
                     <h4>Carlos Rodríguez, Paciente</h4>
                 </div>
-                
             </div>
         </section>
 
-        <section id="contacto" class="contact">
-            <h2>Contacto Rápido</h2>
-            <form action="{{ url_for('enviar_contacto') }}" method="POST">
-                <input type="text" name="nombre" placeholder="Nombre" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <textarea name="mensaje" placeholder="Mensaje" required></textarea>
-                <button type="submit">Enviar</button>
-            </form>
-        </section>
+    
     </main>
 
     <footer>
@@ -127,6 +311,8 @@
             <p>&copy; 2024 Medicare. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+
 
     <script> 
         document.addEventListener('DOMContentLoaded', () => {
@@ -142,6 +328,60 @@
                 });
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function() {
+    var buscarAvanzadoBtn = document.getElementById("buscar-avanzado-btn");
+    var busquedaAvanzada = document.getElementById("busqueda-avanzada");
+    var aplicarFiltrosBtn = document.getElementById("aplicar-filtros-btn");
+    var formularioBusqueda = document.getElementById("formulario-busqueda");
+    var mensajeError = document.getElementById("mensaje-error");
+
+    buscarAvanzadoBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        if (busquedaAvanzada.style.display === "none") {
+            busquedaAvanzada.style.display = "block";
+        } else {
+            busquedaAvanzada.style.display = "none";
+        }
+    });
+
+    aplicarFiltrosBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        // Obtener los valores de los campos
+        var especialidad = document.getElementById("especialidad").value;
+        var ubicacion = document.getElementById("ubicacion").value;
+        var tipoConsulta = document.getElementById("tipo_consulta").value;
+        var genero = document.getElementById("genero").value;
+        var rangoPrecio = document.getElementById("rango_precio").value;
+
+        // Verificar si al menos uno de los campos tiene un valor
+        if (tipoConsulta === "" && genero === "" && rangoPrecio === "") {
+            mensajeError.style.display = "block"; // Mostrar el mensaje de error
+        } else {
+            mensajeError.style.display = "none"; // Ocultar el mensaje de error si estaba visible
+            // Construir la URL con los parámetros de búsqueda
+            var url = "{{ url_for('buscar_especialistas') }}?";
+            if (especialidad !== "") url += "especialidad=" + especialidad + "&";
+            if (ubicacion !== "") url += "ubicacion=" + ubicacion + "&";
+            if (tipoConsulta !== "") url += "tipo_consulta=" + tipoConsulta + "&";
+            if (genero !== "") url += "genero=" + genero + "&";
+            if (rangoPrecio !== "") url += "rango_precio=" + rangoPrecio + "&";
+
+            // Redireccionar a la página de resultados con los filtros aplicados
+            window.location.href = url.slice(0, -1); // Eliminar el último "&"
+        }
+    });
+});
+
+
+        
+  
+
+
+
+
+
+        
     </script> 
 </body>
 </html>

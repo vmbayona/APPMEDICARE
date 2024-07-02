@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Dropdown Menu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="company-name">STRETCH CEILING <span>SUPPLY</span></h1>
+    </header>
+    <nav class="navbar">
+        <ul class="menu">
+            <li class="menu-item">
+                <a href="#">Home</a>
+            </li>
+            <li class="menu-item dropdown">
+                <a href="#">About Us</a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item"><a href="#">Our Team</a></li>
+                    <li class="dropdown-item"><a href="#">Our Story</a></li>
+                </ul>
+            </li>
+            <li class="menu-item dropdown">
+                <a href="#">Products and Solutions</a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item"><a href="#">Web Development</a></li>
+                    <li class="dropdown-item"><a href="#">App Development</a></li>
+                    <li class="dropdown-item"><a href="#">SEO</a></li>
+                </ul>
+            </li>
+
+            <li class="menu-item dropdown">
+                <a href="#">Trainning and certification</a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item"><a href="#">Web Development</a></li>
+                    <li class="dropdown-item"><a href="#">App Development</a></li>
+                    <li class="dropdown-item"><a href="#">SEO</a></li>
+                </ul>
+            </li>
+            
+            <li class="menu-item">
+                <a href="#">Inspiration Hub</a>
+            </li>
+
+            <li class="menu-item">
+                <a href="#">Showroom Experience</a>
+            </li>
+
+            <li class="menu-item">
+                <a href="#">Support</a>
+            </li>
+
+            <li class="menu-item">
+                <a href="#">Request a Quote</a>
+            </li>
+
+
+            <li class="menu-item">
+                <a href="#">Login</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="section-background">
+        <div class="background-image">
+            <!-- Aquí va tu imagen de fondo -->
+        </div>
+        <div class="content">
+            <!-- Cuadros con información -->
+            <div class="info-box">
+                <h3>REVOLUTION YOUR PROJECTS WITH PREMIUM CEILING AND LIGHT SOLUTIONS</h3>
+            </div>
+            <!-- Puedes repetir estos cuadros según sea necesario -->
+            <button class="transparent-button">Be a part of the revolution</button>
+        </div>
+    </section>
+
+<!-- Sección para describir elementos -->
+<section class="section-elements">
+    <h2>SCS Last News</h2>
+    <div class="background-image"></div>
+    <div class="content">
+      <!-- Cuadros con información -->
+      <div class="info-box">
+        <h3>REVOLUTION YOUR PROJECTS WITH PREMIUM CEILING AND LIGHT SOLUTIONS</h3>
+      </div>
+      <!-- Puedes repetir estos cuadros según sea necesario -->
+      <button class="transparent-button">Discover More</button>
+      <div class="gallery">
+        <div class="gallery-item">News 1</div>
+        <div class="gallery-item">News 2</div>
+        <div class="gallery-item">News 3</div>
+        <!-- Añade más elementos de la galería según sea necesario -->
+      </div>
+    </div>
+  </section>
+  
+  
+    
+
+   <!-- Sección con galería de imágenes de servicios -->
+<section class="section-gallery">
+    <h2>More About SCS</h2>
+    <div class="gallery-container">
+      <button class="prev-button">&#10094;</button>
+      <div class="gallery">
+        <!-- Aquí van las imágenes de servicios -->
+        <div class="gallery-item">
+          <img src="imagen1.jpg" alt="Servicio 1">
+          <p>Descripción servicio 1</p>
+        </div>
+        <div class="gallery-item">
+          <img src="imagen2.jpg" alt="Servicio 2">
+          <p>Descripción servicio 2</p>
+        </div>
+        <div class="gallery-item">
+          <img src="imagen3.jpg" alt="Servicio 3">
+          <p>Descripción servicio 3</p>
+        </div>
+
+        <!-- Agregar más elementos según sea necesario -->
+      </div>
+      <button class="next-button">&#10095;</button>
+    </div>
+  </section>
+  
+
+
+
+    <!-- Pie de página -->
+    <footer>
+        <ul class="footer-columns">
+            <!-- Columna 1 -->
+            <li class="footer-column">
+                <h3>Sección 1</h3>
+                <ul>
+                    <li><a href="#">Opción 1</a></li>
+                    <li><a href="#">Opción 2</a></li>
+                    <li><a href="#">Opción 3</a></li>
+                </ul>
+            </li>
+            <!-- Columna 2 -->
+            <li class="footer-column">
+                <h3>Sección 2</h3>
+                <ul>
+                    <li><a href="#">Opción 4</a></li>
+                    <li><a href="#">Opción 5</a></li>
+                    <li><a href="#">Opción 6</a></li>
+                </ul>
+            </li>
+            <!-- Columna 3 -->
+            <li class="footer-column">
+                <h3>Sección 3</h3>
+                <ul>
+                    <li><a href="#">Opción 7</a></li>
+                    <li><a href="#">Opción 8</a></li>
+                    <li><a href="#">Opción 9</a></li>
+                </ul>
+            </li>
+            <!-- Columna 4 -->
+            <li class="footer-column">
+                <h3>Sección 4</h3>
+                <ul>
+                    <li><a href="#">Opción 10</a></li>
+                    <li><a href="#">Opción 11</a></li>
+                    <li><a href="#">Opción 12</a></li>
+                </ul>
+            </li>
+        </ul>
+        <p>&copy; 2024 Nombre de la Empresa. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const gallery = document.querySelector('.gallery');
+      const prevButton = document.querySelector('.prev-button');
+      const nextButton = document.querySelector('.next-button');
+      let scrollAmount = 0;
+  
+      prevButton.addEventListener('click', () => {
+        gallery.scrollBy({ left: -gallery.clientWidth / 4, behavior: 'smooth' });
+      });
+  
+      nextButton.addEventListener('click', () => {
+        gallery.scrollBy({ left: gallery.clientWidth / 4, behavior: 'smooth' });
+      });
+    });
+  </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

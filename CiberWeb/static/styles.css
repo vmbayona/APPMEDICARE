@@ -39,7 +39,7 @@ nav {
 }
 
 .cta .button {
-    background-color: #c1ff72;
+    background-color: #05b90e;
     color: #fff;
     padding: 10px 20px;
     text-decoration: none;
@@ -47,15 +47,7 @@ nav {
     font-weight: bold;
 }
 
-.cta .button-secondary {
-    background-color: #ffc107;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-left: 10px;
-}
+
 
 .hero {
     background: url('/static/images/background.jpg') no-repeat center center/cover;
@@ -159,7 +151,7 @@ nav {
 }
 
 footer {
-    background-color: #007bff;
+    background-color: #0cc0df;
     color: #fff;
     text-align: center;
     padding: 10px 0;
@@ -175,15 +167,18 @@ footer p {
 }
 
 
+
+/* Estilos para el perfil */
 .profile {
-    max-width: 600px;
-    margin: 20px auto;
+    width: 90%;
+    margin: 40px auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+
 .profile img {
     width: 150px;
     height: 150px;
@@ -191,34 +186,47 @@ footer p {
     object-fit: cover;
     margin-bottom: 20px;
 }
+
 .profile h2 {
     margin: 0;
     font-size: 24px;
+    color: #007bff; /* Cambiado para que coincida con otros encabezados */
 }
+
 .profile p {
     margin: 5px 0;
     font-size: 18px;
 }
+
 .profile .price {
     font-size: 20px;
     font-weight: bold;
-    color: #4CAF50;
+    color: #4CAF50; /* Cambiado para que coincida con otros colores de texto */
 }
-.details {
+
+.profile .details {
     margin-top: 20px;
 }
-.details button {
-    background-color: #008CBA;
-    color: white;
+
+.profile .details button {
     padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
-.details .hidden {
+
+.profile .details button:hover {
+    background-color: #0056b3;
+}
+
+.hidden {
     display: none;
-    margin-top: 20px;
 }
+
 
 
 /* Estilos para la sección de búsqueda */
@@ -226,7 +234,7 @@ footer p {
     width: 90%;
     margin: 40px auto;
     padding: 20px;
-    background-color: #f4f4f4; /* Cambiado para que coincida con el fondo general */
+    background-color: #ffff; /* Cambiado para que coincida con el fondo general */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -247,7 +255,7 @@ footer p {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #f8f9fa; /* Color de fondo */
-    color: #333; /* Color del texto */
+    color: #007bff; /* Color del texto */
     font-size: 16px;
     outline: none;
     transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
@@ -258,9 +266,9 @@ footer p {
     padding: 10px;
 }
 
-/* Estilo para el botón de búsqueda */
-.search-form .button {
-    padding: 12px 30px;
+.search-form button {
+    margin-inline: 50px; /* Agregado margen superior */
+    padding: 12px 20px;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -269,7 +277,6 @@ footer p {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s, box-shadow 0.3s;
-    margin-top: 20px; /* Agregado margen superior */
 }
 
 /* Pseudo-clases hover para los selectores y el botón */
@@ -287,3 +294,108 @@ footer p {
 }
 
 
+/* Agrega estos estilos para la lista de búsqueda avanzada */
+
+.advanced-search-list {
+    list-style: none;
+    padding: 0;
+}
+
+.advanced-search-list li {
+    margin-bottom: 1em;
+}
+
+.advanced-search-list label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.advanced-search-list select {
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa; /* Color de fondo */
+    color: #007bff; /* Color del texto */
+    font-size: 16px;
+    outline: none;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+
+
+
+
+
+
+
+
+
+/* Estilos para la sección de calendario */
+.schedule {
+    width: calc(50% - 20px); /* 50% del ancho total menos el margen entre las secciones */
+    margin: 40px 35px; /* Margen superior e inferior de 40px y margen izquierdo y derecho de 10px */
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.schedule h2 {
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+.schedule .calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.schedule label {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.schedule input,
+.schedule select {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: calc(90% - 20px); /* 100% del ancho de su contenedor menos el espacio de padding */
+    max-width: 300px;
+}
+
+.schedule button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.schedule button:hover {
+    background-color: #0056b3;
+}
+
+.rating {
+    margin-top: 10px;
+}
+
+.star {
+    font-size: 20px;
+    color: #f1c40f; /* Color de las estrellas rellenas */
+}
+
+/* Estilo para las estrellas vacías */
+.star.empty {
+    color: #ccc;
+}

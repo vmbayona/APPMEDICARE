@@ -5,6 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEDICARE</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Estilos adicionales */
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .profile,
+        .schedule {
+            width: 40%; /* Ajustar el ancho según sea necesario */
+            margin-bottom: 5px; /* Espacio entre las secciones */
+        }
+
+        @media screen and (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .profile,
+            .schedule {
+                width: 10%;
+                margin-bottom: 5px; /* Espacio entre las secciones */
+            }
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Estilo para los elementos de la lista */
+        ul li {
+            margin-bottom: 5px; /* Ajusta el espacio entre elementos */
+        }
+
+        .rating {
+        direction: rtl;
+        unicode-bidi: bidi-override;
+        text-align: center;
+        width: 100%;
+        margin: 10px 0;
+    }
+    .rating > input {
+        display: none;
+    }
+    .rating > label {
+        font-size: 2em;
+        color: lightgray;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .rating > input:checked ~ label,
+    .rating > input:checked ~ label ~ label {
+        color: gold;
+    }
+    .rating > input:hover ~ label,
+    .rating > input:hover ~ label ~ label {
+        color: gold;
+
+    }
+
+
+    .form-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-column {
+        flex: 1;
+        margin-right: 20px;
+    }
+
+    .form-column label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    </style>
     <script>
         function toggleDetails() {
             var details = document.getElementById('extraDetails');
@@ -14,13 +94,69 @@
                 details.style.display = 'none';
             }
         }
+
+        function scheduleAppointment() {
+            alert("Cita agendada con éxito!");
+        }
+
+
+        function toggleDetails(detailId) {
+        var detailsElement = document.getElementById(detailId);
+        if (detailsElement) {
+            var extraDetails = document.getElementById('extraDetails');
+            var allDetails = extraDetails.querySelectorAll('p');
+            allDetails.forEach(function (detail) {
+                if (detail.id !== detailId) {
+                    detail.style.display = 'none';
+                }
+            });
+            extraDetails.classList.remove('hidden');
+            detailsElement.style.display = 'block';
+        }
+
+        if (detailId === 'informacion') {
+            var ubicacion = document.getElementById('informacion');
+            ubicacion.innerHTML = '<ul><li>Ubicación: Calle Falsa 123, Ciudad</li><li>Email: dr.juan@example.com</li></ul>';
+        }
+
+        if (detailId === 'price') {
+            var ubicacion = document.getElementById('price');
+            ubicacion.innerHTML = '<ul><li>Consulta: $100 </li><li>Operacion : $500</li></ul>';
+        }
+
+    }
+
+
+
+    function showMyAppointmentForm() {
+        document.getElementById('my-appointment-form').style.display = 'block';
+        document.getElementById('other-appointment-form').style.display = 'none';
+    }
+
+    function showOtherAppointmentForm() {
+        document.getElementById('other-appointment-form').style.display = 'block';
+        document.getElementById('my-appointment-form').style.display = 'none';
+    }
+
+    function scheduleAppointment(type) {
+        if (type === 'my') {
+            // Aquí puedes manejar la lógica para agendar la cita para ti
+            console.log('Agendar cita para mí');
+        } else {
+            // Aquí puedes manejar la lógica para agendar la cita para otra persona
+            console.log('Agendar cita para otra persona');
+        }
+    }
+
     </script>
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la Empresa" width="200" height="200">
+                <a href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo de la Empresa" width="200" height="200">
+                </a>
             </div>
             <ul class="nav-links">
                 <li><a href="#">Inicio</a></li>
@@ -36,21 +172,88 @@
     </header>
 
     <main>
-        <section class="profile">
-            <img src="{{ url_for('static', filename='images/doctor.jpg') }}" alt="Foto del Médico">
-            <h2>Dr. Juan Pérez</h2>
-            <p>Especialidad: Cardiología</p>
-            <p class="price">Precio de Consulta: $100</p>
-            <div class="details">
-                <button onclick="toggleDetails()">Ver más detalles</button>
-                <div id="extraDetails" class="hidden">
-                    <p>Experiencia: 10 años</p>
-                    <p>Ubicación: Calle Falsa 123, Ciudad</p>
-                    <p>Teléfono: +123 456 7890</p>
-                    <p>Email: dr.juan@example.com</p>
+        <div class="content-wrapper">
+            <section class="profile">
+                <img src="{{ url_for('static', filename='images/doctor.jpeg') }}" alt="Foto del Médico">
+                <h2>Dr. Juan Pérez</h2>
+                <p> <b>Especialidad: Cardiología</b></p>
+                <p>Acerca de mí: Cardiólogo con 10 años de experiencia, especializado en diagnóstico, tratamiento y cuidado del corazón. Comprometido con la salud cardiovascular y la excelencia médica.</p>
+        
+                <div class="details">
+                    <!-- Botones "Ver Precio", "Ver Experiencia" e "Información adicional" con clase menu-button -->
+                    <button class="menu-button" onclick="toggleDetails('price')">Ver Precio</button>
+                    <button class="menu-button" onclick="toggleDetails('experience')">Ver Experiencia</button>
+                    <button class="menu-button" onclick="toggleDetails('informacion')">Información adicional</button>
+                    
+                    <div id="extraDetails" class="hidden">
+                        <p id="price"></p>
+                        <p id="experience">Experiencia: 10 años</p>
+                        <p id="informacion"></p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-- Nueva sección de calendario -->
+            <section class="schedule">
+                <h2>Agendar Cita</h2>
+                <div class="calendar">
+                    <div class="buttons-container">
+                        <button onclick="showMyAppointmentForm()">Agendar Cita para Mí</button>
+                        <button onclick="showOtherAppointmentForm()">Agendar Cita para Otra Persona</button>
+                    </div>
+            
+                    <div class="form-container">
+                        <div id="my-appointment-form" style="display: none;" class="form-column">
+            
+                            <label for="my-appointment-date">Fecha:</label>
+                            <input type="date" id="my-appointment-date" name="my-appointment-date" required>
+                            
+                            <label for="my-appointment-time">Hora:</label>
+                            <select id="my-appointment-time" name="my-appointment-time" required>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                            </select>
+            
+                            <button onclick="scheduleAppointment()">Agendar Cita</button>
+                        </div>
+            
+                        <div id="other-appointment-form" style="display: none;" class="form-column">
+                            <label for="other-name">Nombre:</label>
+                            <input type="text" id="other-name" name="other-name" required>
+                            
+                            <label for="other-email">Correo:</label>
+                            <input type="email" id="other-email" name="other-email" required>
+            
+                            <label for="other-phone">Número de Celular:</label>
+                            <input type="tel" id="other-phone" name="other-phone" required>
+            
+                            <label for="other-appointment-date">Fecha:</label>
+                            <input type="date" id="other-appointment-date" name="other-appointment-date" required>
+                            
+                            <label for="other-appointment-time">Hora:</label>
+                            <select id="other-appointment-time" name="other-appointment-time" required>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                            </select>
+            
+                            <button onclick="scheduleAppointment()">Agendar Cita</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
         <section class="testimonials">
             <h2>Testimonios</h2>
@@ -58,23 +261,81 @@
                 <div class="testimonial-card">
                     <p>"Gracias a su consultoría, nuestra empresa ha mejorado significativamente su seguridad."</p>
                     <h4>Juan Pérez, CEO de Empresa X</h4>
+                    <div class="rating">
+                        <!-- Agregar calificación aquí -->
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9734;</span>
+                    </div>
                 </div>
                 <div class="testimonial-card">
                     <p>"Los servicios de auditoría fueron exhaustivos y nos ayudaron a cumplir con todas las normativas."</p>
                     <h4>María García, CTO de Empresa Y</h4>
+                    <div class="rating">
+                        <!-- Agregar calificación aquí -->
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Los servicios de auditoría fueron exhaustivos y nos ayudaron a cumplir con todas las normativas."</p>
+                    <h4>María García, CTO de Empresa Y</h4>
+                    <div class="rating">
+                        <!-- Agregar calificación aquí -->
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="contact">
-            <h2>Contacto Rápido</h2>
-            <form>
-                <input type="text" placeholder="Nombre" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Mensaje" required></textarea>
+        <section id="contacto" class="contact">
+            <h2>Califica a tu Médico</h2>
+            <form action="{{ url_for('enviar_contacto') }}" method="POST">
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="mensaje" placeholder="Mensaje" required></textarea>
+                
+                <div class="rating">
+                    <input type="radio" name="calificacion" id="star5" value="5" required>
+                    <label for="star5" title="5 estrellas">☆</label>
+                    <input type="radio" name="calificacion" id="star4" value="4">
+                    <label for="star4" title="4 estrellas">☆</label>
+                    <input type="radio" name="calificacion" id="star3" value="3">
+                    <label for="star3" title="3 estrellas">☆</label>
+                    <input type="radio" name="calificacion" id="star2" value="2">
+                    <label for="star2" title="2 estrellas">☆</label>
+                    <input type="radio" name="calificacion" id="star1" value="1">
+                    <label for="star1" title="1 estrella">☆</label>
+                </div>
+        
                 <button type="submit">Enviar</button>
             </form>
         </section>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
     </main>
 
     <footer>
@@ -84,7 +345,7 @@
                 <a href="#"><img src="{{ url_for('static', filename='images/twitter.png') }}" alt="Twitter"></a>
                 <a href="#"><img src="{{ url_for('static', filename='images/linkedin.png') }}" alt="LinkedIn"></a>
             </div>
-            <p>&copy; 2024 Consultoría en Ciberseguridad. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Medicare. Todos los derechos reservados.</p>
         </div>
     </footer>
 </body>

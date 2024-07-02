@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspiración | Dormitorios & Salas de estar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .gallery-header h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .gallery-container {
+            width: 80%;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden; /* Para ocultar las partes de las imágenes que salgan del contenedor */
+        }
+
+        .gallery-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            overflow: hidden;
+        }
+
+        .gallery-item {
+            flex: 0 0 auto; /* Evita que los ítems se hagan más grandes que su contenido */
+            width: calc(100% / 4); /* Mostrar cuatro imágenes por fila */
+            box-sizing: border-box;
+            margin-right: 10px; /* Espacio entre imágenes */
+            border: 2px solid #ddd; /* Borde alrededor de cada imagen */
+            overflow: hidden; /* Ocultar bordes que sobresalgan */
+            cursor: pointer; /* Cambiar cursor al pasar por encima */
+        }
+
+        .gallery-item img {
+            width: 100%; /* Ajustar tamaño de la imagen al contenedor */
+            display: block;
+            transition: transform 0.3s ease; /* Efecto de transición suave */
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.1); /* Efecto de escala al pasar el ratón */
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .gallery-nav button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .gallery-nav button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .color-options {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .color-options button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .recommendations {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .recommendations h2 {
+            margin-bottom: 20px;
+        }
+
+        .recommendation-item {
+            display: inline-block;
+            margin: 0 10px;
+            text-align: center;
+        }
+
+        .recommendation-item img {
+            width: 200px;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-header">
+        <h1>Inspiration Hub | Bedrooms & Living rooms</h1>
+    </div>
+    <div class="gallery-container">
+        <div class="gallery-slider" id="gallery-slider">
+            <div class="gallery-item">
+                <img src="C:\Users\HP\Documents\APPMEDICARE\Catalogo\I1.jpg" alt="Producto 1">
+            </div>
+            <div class="gallery-item">
+                <img src="C:\Users\HP\Documents\APPMEDICARE\Catalogo\I2.jpg" alt="Producto 2">
+            </div>
+            <div class="gallery-item">
+                <img src="C:\Users\HP\Documents\APPMEDICARE\Catalogo\I3.jpg" alt="Producto 3">
+            </div>
+            <div class="gallery-item">
+                <img src="C:\Users\HP\Documents\APPMEDICARE\Catalogo\I4.jpg" alt="Producto 4">
+            </div>
+            <div class="gallery-item">
+                <img src="C:\Users\HP\Documents\APPMEDICARE\Catalogo\I5.jpg" alt="Producto 5">
+            </div>
+            <div class="gallery-item">
+                <img src="C:\Users\HP\Documents\APPMEDICARE\Catalogo\I6.jpg" alt="Producto 6">
+            </div>
+            <div class="gallery-item">
+                <img src="C:\Users\HP\Documents\APPMEDICARE\Catalogo\I2.jpg" alt="Producto 7">
+            </div>
+            <div class="gallery-item">
+                <img src="C:\Users\HP\Documents\APPMEDICARE\Catalogo\I3.jpg" alt="Producto 8">
+            </div>
+        </div>
+        <div class="gallery-nav">
+            <button onclick="prevSlide()">&#10094;</button>
+            <button onclick="nextSlide()">&#10095;</button>
+        </div>
+        <div class="color-options">
+            <button style="background-color: #3E4A89;" onclick="changeColor('#3E4A89')"></button>
+            <button style="background-color: #AEDFF7;" onclick="changeColor('#AEDFF7')"></button>
+            <button style="background-color: #FFD700;" onclick="changeColor('#FFD700')"></button>
+            <button style="background-color: #8B0000;" onclick="changeColor('#8B0000')"></button>
+        </div>
+    </div>
+    <div class="recommendations">
+        <h2>Try with</h2>
+        <div class="recommendation-item">
+            <img src="recommend1.jpg" alt="Recomendación 1">
+            <p>Dark forest Bedroom</p>
+        </div>
+        <div class="recommendation-item">
+            <img src="recommend2.jpg" alt="Recomendación 2">
+            <p>Bi-color Loft</p>
+        </div>
+        <div class="recommendation-item">
+            <img src="recommend3.jpg" alt="Recomendación 3">
+            <p>Seaside hotel suite</p>
+        </div>
+        <div class="recommendation-item">
+            <img src="recommend4.jpg" alt="Recomendación 4">
+            <p>Nintendo bedroom</p>
+        </div>
+    </div>
+    <script>
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            const slider = document.getElementById('gallery-slider');
+            const totalSlides = slider.children.length;
+            if (index >= totalSlides) {
+                currentIndex = 0;
+            } else if (index < 0) {
+                currentIndex = totalSlides - 1;
+            } else {
+                currentIndex = index;
+            }
+            const offset = -currentIndex * (100 / 4); /* Ajustar el porcentaje según el número de imágenes */
+            slider.style.transform = `translateX(${offset}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(currentIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
+
+        function changeColor(color) {
+            document.body.style.backgroundColor = color;
+        }
+    </script>
+</body>
+</html>

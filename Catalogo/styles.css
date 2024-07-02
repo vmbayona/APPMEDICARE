@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+}
+
+.gallery-header {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.gallery-container {
+    width: 80%;
+    max-width: 1200px;
+    position: relative;
+}
+
+.gallery-slider {
+    display: flex;
+    transition: transform 0.5s ease;
+    overflow: hidden;
+}
+
+.gallery-item {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.gallery-item img {
+    width: 100%;
+    display: block;
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.gallery-nav button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.gallery-nav button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.color-options {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.color-options button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.recommendations {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.recommendations h2 {
+    margin-bottom: 20px;
+}
+
+.recommendation-item {
+    display: inline-block;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.recommendation-item img {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
